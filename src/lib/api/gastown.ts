@@ -10,40 +10,32 @@
  */
 
 export interface GasTownAPI {
-  polecats: () => Promise<
-    Array<{
-      id: string;
-      name: string;
-      status: "idle" | "working" | "offline";
-    }>
-  >;
-
-  beads: () => Promise<
-    Array<{
-      id: string;
-      title: string;
-      status: string;
-      assignee?: string;
-    }>
-  >;
-
+  polecats: () => Promise<Array<{
+    id: string
+    name: string
+    status: 'idle' | 'working' | 'offline'
+  }>>
+  
+  beads: () => Promise<Array<{
+    id: string
+    title: string
+    status: string
+    assignee?: string
+  }>>
+  
   refinery: {
-    queue: () => Promise<
-      Array<{
-        id: string;
-        title: string;
-        status: string;
-      }>
-    >;
-  };
-
-  escalations: () => Promise<
-    Array<{
-      id: string;
-      title: string;
-      priority: number;
-    }>
-  >;
+    queue: () => Promise<Array<{
+      id: string
+      title: string
+      status: string
+    }>>
+  }
+  
+  escalations: () => Promise<Array<{
+    id: string
+    title: string
+    priority: number
+  }>>
 }
 
 // TODO: Implement actual Gas Town API calls

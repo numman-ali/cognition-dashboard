@@ -5,36 +5,33 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"npm run server\" \"vite\"",
+    "server": "node server.js",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "format": "prettier --write .",
-    "test": "vitest",
-    "test:run": "vitest run"
+    "format": "prettier --write ."
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^2.4.6",
+    "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.13",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/svelte": "^5.3.1",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
     "autoprefixer": "^10.4.19",
     "eslint": "^8.56.0",
-    "jsdom": "^27.4.0",
     "postcss": "^8.4.47",
     "svelte": "^4.2.8",
     "svelte-check": "^3.6.2",
-    "svelte-preprocess": "^6.0.3",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
-    "vite": "^5.0.10",
-    "vitest": "^4.0.16"
+    "vite": "^5.0.10"
   },
   "dependencies": {
-    "cytoscape": "^3.30.1"
+    "concurrently": "^8.2.2",
+    "cors": "^2.8.5",
+    "cytoscape": "^3.30.1",
+    "express": "^4.18.2"
   }
 }
