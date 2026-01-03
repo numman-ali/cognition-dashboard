@@ -2,6 +2,7 @@
   "compilerOptions": {
     "moduleResolution": "bundler",
     "target": "ES2020",
+    "module": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
@@ -11,13 +12,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "verbatimModuleSyntax": true,
     "baseUrl": "./src",
     "paths": {
+      "$lib": ["lib"],
       "$lib/*": ["lib/*"],
       "$components/*": ["lib/components/*"],
       "$stores/*": ["lib/stores/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.svelte"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "build"]
 }
