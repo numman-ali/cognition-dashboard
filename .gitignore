@@ -3,14 +3,15 @@ node_modules/
 package-lock.json
 yarn.lock
 
-# Build output
+# Build artifacts
 build/
 dist/
 .svelte-kit/
 
-# Environment files
+# Environment
 .env
 .env.local
+.env.production
 .env.*.local
 
 # IDE
@@ -24,6 +25,7 @@ dist/
 Thumbs.db
 
 # Logs
+logs
 *.log
 npm-debug.log*
 
