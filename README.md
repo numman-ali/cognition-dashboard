@@ -7,6 +7,7 @@ A modern, interactive web dashboard for monitoring and visualizing Gas Town oper
 ## Features
 
 ### Core Visualization
+
 - **Town Overview** - Interactive network diagram of your Gas Town workspace
 - **Worker Status** - Real-time monitoring of polecats and crew members
 - **Merge Pipeline** - Visualize work flowing through the Refinery queue
@@ -15,6 +16,7 @@ A modern, interactive web dashboard for monitoring and visualizing Gas Town oper
 - **Mail/Messages** - See inter-agent communication in real-time
 
 ### Monitoring
+
 - ✨ Real-time updates via WebSocket
 - 📊 Historical activity timeline
 - 🎯 Work item details and status
@@ -23,6 +25,7 @@ A modern, interactive web dashboard for monitoring and visualizing Gas Town oper
 - 🚨 Escalation alerts and incident tracking
 
 ### Architecture
+
 - **Frontend**: SvelteKit + TypeScript
 - **Visualization**: Cytoscape.js for network graphs
 - **Real-time**: WebSocket + Server-Sent Events
@@ -31,6 +34,7 @@ A modern, interactive web dashboard for monitoring and visualizing Gas Town oper
 ## Getting Started
 
 ### Prerequisites
+
 - Node.js 18+
 - Gas Town installation (`gt`)
 - GitHub CLI (`gh`)
@@ -72,7 +76,7 @@ The dashboard reads live data from your Gas Town installation:
 
 ```typescript
 // Example: Query Gas Town state
-import { queryGasTown } from '$lib/gas-town';
+import { queryGasTown } from "$lib/gas-town";
 
 const polecats = await queryGasTown.polecats();
 const mergeQueue = await queryGasTown.refinery.queue();

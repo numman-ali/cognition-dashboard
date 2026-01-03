@@ -1,18 +1,18 @@
-import type { GasTopology, GasNode, GasEdge } from './visualizer';
+import type { GasTopology, GasNode, GasEdge } from "./visualizer";
 
 export interface Polecat {
   id: string;
   name: string;
   rig: string;
-  status: 'active' | 'idle' | 'blocked';
+  status: "active" | "idle" | "blocked";
   workOnHook?: string;
 }
 
 export interface Bead {
   id: string;
   title: string;
-  type: 'task' | 'bug' | 'feature' | 'epic';
-  status: 'open' | 'in_progress' | 'blocked' | 'complete';
+  type: "task" | "bug" | "feature" | "epic";
+  status: "open" | "in_progress" | "blocked" | "complete";
   assignee?: string;
   dependencies?: string[];
 }
@@ -48,8 +48,8 @@ export class GasTownIntegration {
       nodes.push({
         id: `rig-${rig.id}`,
         label: rig.name,
-        type: 'town',
-        status: 'active'
+        type: "town",
+        status: "active",
       });
     });
 
@@ -58,8 +58,8 @@ export class GasTownIntegration {
       nodes.push({
         id: `polecat-${polecat.id}`,
         label: polecat.name,
-        type: 'polecat',
-        status: polecat.status
+        type: "polecat",
+        status: polecat.status,
       });
 
       // Connect polecat to its rig
@@ -68,8 +68,8 @@ export class GasTownIntegration {
         edges.push({
           source: `rig-${polecat.rig}`,
           target: `polecat-${polecat.id}`,
-          type: 'work',
-          label: 'member'
+          type: "work",
+          label: "member",
         });
         edgeMap.add(edgeId);
       }
@@ -81,8 +81,8 @@ export class GasTownIntegration {
           edges.push({
             source: `polecat-${polecat.id}`,
             target: `bead-${polecat.workOnHook}`,
-            type: 'work',
-            label: 'working on'
+            type: "work",
+            label: "working on",
           });
           edgeMap.add(workEdgeId);
         }
@@ -94,8 +94,8 @@ export class GasTownIntegration {
       nodes.push({
         id: `bead-${bead.id}`,
         label: bead.title.substring(0, 20),
-        type: 'bead',
-        status: this.mapBeadStatus(bead.status)
+        type: "bead",
+        status: this.mapBeadStatus(bead.status),
       });
     });
 
@@ -108,8 +108,8 @@ export class GasTownIntegration {
             edges.push({
               source: `bead-${dep}`,
               target: `bead-${bead.id}`,
-              type: 'dependency',
-              label: 'blocks'
+              type: "dependency",
+              label: "blocks",
             });
             edgeMap.add(depEdgeId);
           }
@@ -125,8 +125,8 @@ export class GasTownIntegration {
           edges.push({
             source: this.normalizeNodeId(msg.from),
             target: this.normalizeNodeId(msg.to),
-            type: 'communication',
-            label: 'mail'
+            type: "communication",
+            label: "mail",
           });
           edgeMap.add(msgEdgeId);
         }
@@ -140,18 +140,18 @@ export class GasTownIntegration {
    * Map bead status to visualization status
    */
   private static mapBeadStatus(
-    beadStatus: 'open' | 'in_progress' | 'blocked' | 'complete'
-  ): 'active' | 'idle' | 'blocked' | 'complete' {
+    beadStatus: "open" | "in_progress" | "blocked" | "complete",
+  ): "active" | "idle" | "blocked" | "complete" {
     switch (beadStatus) {
-      case 'in_progress':
-        return 'active';
-      case 'blocked':
-        return 'blocked';
-      case 'complete':
-        return 'complete';
-      case 'open':
+      case "in_progress":
+        return "active";
+      case "blocked":
+        return "blocked";
+      case "complete":
+        return "complete";
+      case "open":
       default:
-        return 'idle';
+        return "idle";
     }
   }
 
@@ -159,9 +159,9 @@ export class GasTownIntegration {
    * Normalize various node ID formats to consistent format
    */
   private static normalizeNodeId(id: string): string {
-    if (id.includes('/')) {
+    if (id.includes("/")) {
       // It's an agent path like "cognition/polecats/nux"
-      const parts = id.split('/');
+      const parts = id.split("/");
       return `polecat-${parts[parts.length - 1]}`;
     }
     return id;
@@ -201,13 +201,13 @@ export class GasTownIntegration {
     const [rigs, polecats, beads] = await Promise.all([
       this.getRigs(),
       this.getPolecats(),
-      this.getBeads()
+      this.getBeads(),
     ]);
 
     return {
       rigs,
       polecats,
-      beads
+      beads,
     };
   }
 }
@@ -219,75 +219,150 @@ export function createMockTopology(): GasTopology {
   return {
     nodes: [
       // Rigs
-      { id: 'rig-cognition', label: 'Cognition', type: 'town', status: 'active' },
-      { id: 'rig-security', label: 'Security', type: 'town', status: 'active' },
+      {
+        id: "rig-cognition",
+        label: "Cognition",
+        type: "town",
+        status: "active",
+      },
+      { id: "rig-security", label: "Security", type: "town", status: "active" },
 
       // Polecats
-      { id: 'polecat-nux', label: 'polecat: nux', type: 'polecat', status: 'active' },
-      { id: 'polecat-spike', label: 'polecat: spike', type: 'polecat', status: 'idle' },
-      { id: 'polecat-alpha', label: 'polecat: alpha', type: 'polecat', status: 'blocked' },
+      {
+        id: "polecat-nux",
+        label: "polecat: nux",
+        type: "polecat",
+        status: "active",
+      },
+      {
+        id: "polecat-spike",
+        label: "polecat: spike",
+        type: "polecat",
+        status: "idle",
+      },
+      {
+        id: "polecat-alpha",
+        label: "polecat: alpha",
+        type: "polecat",
+        status: "blocked",
+      },
 
       // Refineries
       {
-        id: 'refinery-cognition',
-        label: 'Refinery (cognition)',
-        type: 'refinery',
-        status: 'active'
+        id: "refinery-cognition",
+        label: "Refinery (cognition)",
+        type: "refinery",
+        status: "active",
       },
 
       // Witnesses
       {
-        id: 'witness-cognition',
-        label: 'Witness (cognition)',
-        type: 'witness',
-        status: 'active'
+        id: "witness-cognition",
+        label: "Witness (cognition)",
+        type: "witness",
+        status: "active",
       },
 
       // Beads
-      { id: 'bead-gm-8xz', label: 'Create Cytoscape viz', type: 'bead', status: 'active' },
-      { id: 'bead-gm-abc', label: 'Add WebSocket stream', type: 'bead', status: 'idle' },
-      { id: 'bead-gm-def', label: 'Real-time updates', type: 'bead', status: 'blocked' },
-      { id: 'bead-gm-ghi', label: 'Dashboard page', type: 'bead', status: 'active' }
+      {
+        id: "bead-gm-8xz",
+        label: "Create Cytoscape viz",
+        type: "bead",
+        status: "active",
+      },
+      {
+        id: "bead-gm-abc",
+        label: "Add WebSocket stream",
+        type: "bead",
+        status: "idle",
+      },
+      {
+        id: "bead-gm-def",
+        label: "Real-time updates",
+        type: "bead",
+        status: "blocked",
+      },
+      {
+        id: "bead-gm-ghi",
+        label: "Dashboard page",
+        type: "bead",
+        status: "active",
+      },
     ],
     edges: [
       // Rig membership
-      { source: 'rig-cognition', target: 'polecat-nux', type: 'work', label: 'member' },
-      { source: 'rig-cognition', target: 'polecat-spike', type: 'work', label: 'member' },
-      { source: 'rig-cognition', target: 'polecat-alpha', type: 'work', label: 'member' },
       {
-        source: 'rig-cognition',
-        target: 'refinery-cognition',
-        type: 'work',
-        label: 'merge'
+        source: "rig-cognition",
+        target: "polecat-nux",
+        type: "work",
+        label: "member",
       },
       {
-        source: 'rig-cognition',
-        target: 'witness-cognition',
-        type: 'work',
-        label: 'monitor'
+        source: "rig-cognition",
+        target: "polecat-spike",
+        type: "work",
+        label: "member",
+      },
+      {
+        source: "rig-cognition",
+        target: "polecat-alpha",
+        type: "work",
+        label: "member",
+      },
+      {
+        source: "rig-cognition",
+        target: "refinery-cognition",
+        type: "work",
+        label: "merge",
+      },
+      {
+        source: "rig-cognition",
+        target: "witness-cognition",
+        type: "work",
+        label: "monitor",
       },
 
       // Work assignments
-      { source: 'polecat-nux', target: 'bead-gm-8xz', type: 'work', label: 'working on' },
-      { source: 'polecat-spike', target: 'bead-gm-abc', type: 'work', label: 'assigned' },
-      { source: 'polecat-alpha', target: 'bead-gm-def', type: 'work', label: 'blocked on' },
+      {
+        source: "polecat-nux",
+        target: "bead-gm-8xz",
+        type: "work",
+        label: "working on",
+      },
+      {
+        source: "polecat-spike",
+        target: "bead-gm-abc",
+        type: "work",
+        label: "assigned",
+      },
+      {
+        source: "polecat-alpha",
+        target: "bead-gm-def",
+        type: "work",
+        label: "blocked on",
+      },
 
       // Dependencies
       {
-        source: 'bead-gm-def',
-        target: 'bead-gm-8xz',
-        type: 'dependency',
-        label: 'blocks'
+        source: "bead-gm-def",
+        target: "bead-gm-8xz",
+        type: "dependency",
+        label: "blocks",
       },
       {
-        source: 'bead-gm-ghi',
-        target: 'bead-gm-abc',
-        type: 'dependency',
-        label: 'blocks'
+        source: "bead-gm-ghi",
+        target: "bead-gm-abc",
+        type: "dependency",
+        label: "blocks",
       },
 
       // Communication
-      { source: 'polecat-nux', target: 'witness-cognition', type: 'communication', label: 'report' }
-    ]
+      {
+        source: "polecat-nux",
+        target: "witness-cognition",
+        type: "communication",
+        label: "report",
+      },
+    ],
   };
 }
